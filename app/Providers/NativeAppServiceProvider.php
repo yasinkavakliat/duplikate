@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Contracts\ProvidesPhpIni;
+use Native\Laravel\Menu\Menu;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -13,7 +14,13 @@ class NativeAppServiceProvider implements ProvidesPhpIni
      */
     public function boot(): void
     {
-        Window::open();
+        Menu::new()
+            ->appMenu()
+            ->submenu('Source', Menu::new()->link('https://github.com/yasinkavakliat/duplikate', 'Repository'))
+            ->register();
+
+        Window::open()
+            ->title("Duplikate");
     }
 
     /**
@@ -21,7 +28,6 @@ class NativeAppServiceProvider implements ProvidesPhpIni
      */
     public function phpIni(): array
     {
-        return [
-        ];
+        return [];
     }
 }
